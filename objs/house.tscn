@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://scripts/house.gd" type="Script" id=1]
+[ext_resource path="res://image/misc/allow_build.png" type="Texture" id=2]
+[ext_resource path="res://scripts/houseBasement.gd" type="Script" id=3]
+
+[node name="house" type="Node2D"]
+
+transform/scale = Vector2( 0.5, 0.5 )
+script/script = ExtResource( 1 )
+type = 0
+
+[node name="allow_build" type="Sprite" parent="."]
+
+transform/pos = Vector2( -0.111221, -0.080338 )
+transform/scale = Vector2( 0.276042, 0.411738 )
+texture = ExtResource( 2 )
+
+[node name="base" type="Area2D" parent="."]
+
+input/pickable = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 3 )
+
+[node name="houseeffect" type="Node2D" parent="."]
+
+[connection signal="area_enter_shape" from="base" to="base" method="_on_base_area_enter_shape"]
+
+[connection signal="area_exit_shape" from="base" to="base" method="_on_base_area_exit_shape"]
+
+

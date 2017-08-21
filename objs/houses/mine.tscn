@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://image/planet/mine.png" type="Texture" id=1]
+
+[node name="pivot" type="Node2D"]
+
+transform/pos = Vector2( 0.291992, 0.291985 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+transform/pos = Vector2( 13.1575, -7.26703 )
+build_mode = 0
+polygon = Vector2Array( -34.2962, -9.71253, -16.8254, 22.9644, 22.9693, 8.7289, 8.7338, -24.9186 )
+shape_range = Vector2( -1, -1 )
+trigger = false
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/pos = Vector2( 12.2815, -5.80709 )
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+
+

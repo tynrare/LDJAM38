@@ -1,0 +1,285 @@
+[gd_scene load_steps=14 format=1]
+
+[ext_resource path="res://image/inviroment/back.png" type="Texture" id=1]
+[ext_resource path="res://scripts/camera.gd" type="Script" id=2]
+[ext_resource path="res://objs/ui.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/enemy_spawner.gd" type="Script" id=4]
+[ext_resource path="res://world/tree.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objs/Control.tscn" type="PackedScene" id=6]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+var man = 0;
+var woman = 0;
+var wood = 0;
+var stone = 0;
+var food = 0;
+var freeSpace = 0;
+var homeless = 0;
+var employed = 0;
+var starving = 0;
+
+var hours = 0;
+
+var gameover = false;
+
+func _enter_tree():
+	randomize();
+	Globals.set(\"world\", self);
+
+func _ready():
+	man = randi()%3+3;
+	woman = randi()%3+3;
+	homeless = man + woman;
+	wood = randi()%30+100;
+	stone = randi()%15+30;
+	food = randi()%15+30;
+	# Called every time the node is added to the scene.
+	# Initialization here
+	pass
+	
+func trysetjob():
+	if((man + woman) - homeless - employed > 0):
+		employed += 1;
+		return true;
+	else: return false;
+
+func killsomeone():
+	if(!randi()%2 && man):
+		man -= 1;
+	elif(woman):
+		woman -= 1;
+	if(!man || !woman): gameover = true;
+	freeSpace += 1;
+	
+	if(man + woman < employed):
+		employed -= 1;
+		var factory = get_tree().get_nodes_in_group(\"factory\");
+		factory[randi()%factory.size()].get_node(\"houseeffect\").hasworker = false;"
+
+[sub_resource type="CanvasItemShader" id=2]
+
+_code = {
+"fragment": "uniform float frequency=60;
+uniform float screen=0.5;
+uniform float depth = 0.005;
+
+vec2 uv = SCREEN_UV;
+vec3 c = texscreen(uv);
+c.b /= 3;
+c.g = 0;
+c.r /= 10;
+
+COLOR.rgb=c;",
+"fragment_ofs": 0,
+"light": "",
+"light_ofs": 0,
+"vertex": "",
+"vertex_ofs": 0
+}
+
+[sub_resource type="CanvasItemMaterial" id=3]
+
+shader/shader = SubResource( 2 )
+shader/shading_mode = 0
+shader_param/frequency = 60.0
+shader_param/screen = 0.5
+shader_param/depth = 0.005
+
+[sub_resource type="GDScript" id=4]
+
+script/source = "extends Panel
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+func _ready():
+	set_process(true);
+	#cycle -= randi()%20;
+	# Called every time the node is added to the scene.
+	# Initialization here
+	pass
+	
+func _process(delta):
+	if(Globals.get(\"world\").hours < 8 || Globals.get(\"world\").hours > 18):
+		set_opacity(lerp(get_opacity(), 1, 0.001));
+	else:
+		set_opacity(lerp(get_opacity(), 0, 0.001));"
+
+[sub_resource type="CanvasItemShader" id=5]
+
+_code = {
+"fragment": "uniform float frequency=60;
+uniform float screen=0.5;
+uniform float depth = 0.005;
+
+vec2 uv = SCREEN_UV;
+vec2 luv = UV;
+uv.x += sin(uv.y*frequency+TIME)*depth*luv.y*2;
+uv.x = clamp(uv.x,0,1);
+uv.y -= cos(uv.y*frequency+TIME)*depth;
+uv.y = uv.y + luv.y;
+vec3 c = texscreen(uv);
+c.b *= 1.2;
+c.g *= 1.1;
+c.r /= 2;
+
+COLOR.rgb=c;
+//luv.y *= -1;
+//COLOR = tex(TEXTURE, luv);
+",
+"fragment_ofs": 0,
+"light": "",
+"light_ofs": 0,
+"vertex": "",
+"vertex_ofs": 0
+}
+
+[sub_resource type="CanvasItemMaterial" id=6]
+
+shader/shader = SubResource( 5 )
+shader/shading_mode = 0
+shader_param/frequency = 60.0
+shader_param/screen = 0.5
+shader_param/depth = 0.005
+
+[sub_resource type="GDScript" id=7]
+
+script/source = "extends Panel
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	set_process(true);
+	# Called every time the node is added to the scene.
+	# Initialization here
+	pass
+	
+func _process(delta):
+	set_size(Vector2(get_size().x, get_node(\"../Camera2D\").get_viewport_rect().size.height*get_node(\"../Camera2D\").get_zoom().y/2));
+"
+
+[node name="world" type="Node"]
+
+script/script = SubResource( 1 )
+
+[node name="back" type="Sprite" parent="."]
+
+transform/pos = Vector2( -1729.71, -683.679 )
+transform/scale = Vector2( 1.31205, 1.31205 )
+z/z = -256
+texture = ExtResource( 1 )
+
+[node name="back1" type="Sprite" parent="."]
+
+transform/pos = Vector2( -177.858, -768.226 )
+transform/rot = 0.0866785
+transform/scale = Vector2( 2.54103, 1.77899 )
+z/z = -256
+texture = ExtResource( 1 )
+
+[node name="back2" type="Sprite" parent="."]
+
+transform/pos = Vector2( 1412.64, -459.751 )
+transform/rot = 0.0866785
+transform/scale = Vector2( 1.98367, 1.38878 )
+z/z = -256
+texture = ExtResource( 1 )
+
+[node name="back3" type="Sprite" parent="."]
+
+transform/pos = Vector2( 1916.14, -1058.92 )
+transform/rot = 0.0866785
+transform/scale = Vector2( 1.98367, 1.38878 )
+z/z = -256
+texture = ExtResource( 1 )
+
+[node name="back4" type="Sprite" parent="."]
+
+transform/pos = Vector2( -1795.37, -72.1278 )
+transform/rot = 0.0866785
+transform/scale = Vector2( 1.52493, 1.2962 )
+z/z = -256
+texture = ExtResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+transform/pos = Vector2( 7.74341, 189.337 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = false
+drag_margin/v_enabled = false
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+script/script = ExtResource( 2 )
+allowV = false
+allowH = true
+
+[node name="CanvasLayer" parent="." instance=ExtResource( 3 )]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+
+visibility/opacity = 0.0
+material/material = SubResource( 3 )
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = -1.0
+margin/bottom = 0.0
+script/script = SubResource( 4 )
+
+[node name="spawner" type="Node" parent="."]
+
+script/script = ExtResource( 4 )
+
+[node name="tree" parent="." instance=ExtResource( 5 )]
+
+z/z = -100
+
+[node name="Control" parent="tree" instance=ExtResource( 6 )]
+
+visibility/behind_parent = true
+rect/scale = Vector2( 0.7, 0.7 )
+margin/left = -358.0
+margin/top = 33.0
+margin/right = -318.0
+margin/bottom = 73.0
+
+[node name="Panel" type="Panel" parent="."]
+
+material/material = SubResource( 6 )
+material/use_parent = true
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -3763.0
+margin/top = 302.0
+margin/right = 3761.0
+margin/bottom = 1339.0
+script/script = SubResource( 7 )
+
+

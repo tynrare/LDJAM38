@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://image/planet/stashhouse.png" type="Texture" id=1]
+
+[node name="pivot" type="Node2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+transform/pos = Vector2( 0.875977, -21.8992 )
+build_mode = 0
+polygon = Vector2Array( -13.9964, 17.9423, -2.18781, 24.6495, 10.7544, 18.8869, -2.56568, 12.652 )
+shape_range = Vector2( -1, -1 )
+trigger = false
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/pos = Vector2( -0.583954, -11.0956 )
+transform/scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 1 )
+
+

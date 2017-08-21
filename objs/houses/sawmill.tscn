@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://image/planet/sawmill.png" type="Texture" id=1]
+
+[node name="pivot" type="Node2D"]
+
+transform/pos = Vector2( 0.291992, 0.291985 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+transform/pos = Vector2( 0.583984, -20.4393 )
+build_mode = 0
+polygon = Vector2Array( -23.0261, 17.1557, -13.1069, 23.7685, 20.9017, 14.2272, 7.4872, 9.12587 )
+shape_range = Vector2( -1, -1 )
+trigger = false
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/pos = Vector2( -0.291992, -9.92763 )
+transform/scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 1 )
+
+

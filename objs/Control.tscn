@@ -1,0 +1,294 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://image/misc/font.fnt" type="BitmapFont" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Control
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+var time = 60;
+
+func _ready():
+	set_process(true);
+	# Called every time the node is added to the scene.
+	# Initialization here
+	pass
+
+func _process(delta):
+	var w = Globals.get(\"world\");
+	get_node(\"people\").set_text(\"M: \" + str(w.man) + \"W: \" + str(w.woman));
+	get_node(\"homeless\").set_text(\"Homeless: \" + str(w.homeless));
+	get_node(\"employed\").set_text(\"Employed: \" + str(w.employed));
+	get_node(\"starving\").set_text(\"Starving: \" + str(w.starving));
+	get_node(\"wood\").set_text(\"Wood: \" + str(w.wood));
+	get_node(\"food\").set_text(\"Food: \" + str(w.food));
+	get_node(\"stone\").set_text(\"Stone: \" + str(w.stone));
+	
+	var hl = get_node(\"homeless\");
+	if(w.homeless > 0):
+		hl.set_opacity(lerp(hl.get_opacity(), 0.7, 0.1));
+	else:
+		hl.set_opacity(lerp(hl.get_opacity(), 0, 0.1));
+		
+	var st = get_node(\"starving\");
+	if(w.starving > 0):
+		st.set_opacity(lerp(st.get_opacity(), 0.7, 0.1));
+	else:
+		st.set_opacity(lerp(st.get_opacity(), 0, 0.1));
+		
+	var rest = get_node(\"restart\");
+	if(w.gameover):
+		rest.set_hidden(false);
+		rest.set_opacity(lerp(rest.get_opacity(), 1, 0.01));
+	
+	updateTime(delta);
+	pass;
+	
+func updateTime(delta):
+	time += delta;
+	if(time >= 120): time = 0;
+	var minutes = int(round((time/5-floor(time/5))*60));
+	get_node(\"time\").set_text(\"Time: \" + str(floor(time/5)) + \":\" + str(minutes - minutes%10));
+	Globals.get(\"world\").hours = floor(time/5);"
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends Button
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	# Called every time the node is added to the scene.
+	# Initialization here
+	pass
+
+
+func _on_Button_pressed():
+	var p = Globals.get(\"world\").get_parent();
+	p.remove_child(Globals.get(\"world\"));
+	p.add_child(load(\"res://objs/main.tscn\").instance());
+	pass # replace with function body
+"
+
+[node name="Control" type="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+script/script = SubResource( 1 )
+
+[node name="people" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 174.0
+margin/bottom = 49.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "M: 0 W: 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="homeless" type="Label" parent="."]
+
+visibility/opacity = 0.0
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 206.0
+margin/top = 25.0
+margin/right = 380.0
+margin/bottom = 74.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Homeless:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="employed" type="Label" parent="."]
+
+visibility/opacity = 0.7
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 205.0
+margin/top = 4.0
+margin/right = 379.0
+margin/bottom = 53.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Employed:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="starving" type="Label" parent="."]
+
+visibility/opacity = 0.0
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 206.0
+margin/top = 41.0
+margin/right = 380.0
+margin/bottom = 90.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.476562, 0.476562, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Starving:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="wood" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 79.0
+margin/right = 134.0
+margin/bottom = 128.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Wood: 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="food" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 127.0
+margin/right = 118.0
+margin/bottom = 176.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Food: 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="stone" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 170.0
+margin/right = 140.0
+margin/bottom = 219.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Stone: 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="time" type="Label" parent="."]
+
+visibility/opacity = 0.5
+rect/scale = Vector2( 0.7, 0.7 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 1.0
+margin/top = 216.0
+margin/right = 141.0
+margin/bottom = 265.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Time:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="restart" type="Button" parent="."]
+
+visibility/visible = false
+visibility/opacity = 0.0
+visibility/self_opacity = 0.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 310.0
+margin/top = 148.0
+margin/right = 455.0
+margin/bottom = 203.0
+custom_fonts/font = ExtResource( 1 )
+toggle_mode = false
+enabled_focus_mode = 0
+shortcut = null
+flat = true
+script/script = SubResource( 2 )
+
+[node name="restart" type="Label" parent="restart"]
+
+visibility/behind_parent = true
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 146.0
+margin/bottom = 49.0
+custom_fonts/font = ExtResource( 1 )
+text = "Restart?"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="gameover" type="Label" parent="restart"]
+
+visibility/behind_parent = true
+rect/scale = Vector2( 1.1, 1.1 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -21.0
+margin/top = -46.0
+margin/right = 144.0
+margin/bottom = 3.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Game over"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[connection signal="pressed" from="restart" to="restart" method="_on_Button_pressed"]
+
+

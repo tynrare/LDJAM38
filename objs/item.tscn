@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://scripts/baseItem.gd" type="Script" id=1]
+[ext_resource path="res://objs/house.tscn" type="PackedScene" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+
+[node name="item" type="Control"]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 512.0
+margin/top = 300.0
+margin/right = 512.0
+margin/bottom = 300.0
+script/script = ExtResource( 1 )
+house = ExtResource( 2 )
+exptype = 0
+
+[node name="Control" type="TextureFrame" parent="."]
+
+visibility/self_opacity = 0.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -33.0
+margin/top = -34.0
+margin/right = 31.0
+margin/bottom = 30.0
+texture = ExtResource( 3 )
+stretch_mode = 0
+
+[node name="costInfo" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 11.0
+margin/top = -36.0
+margin/right = 65.0
+margin/bottom = -5.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "cost:
+10 wood"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[connection signal="input_event" from="Control" to="." method="_on_Control_input_event"]
+
+[connection signal="mouse_enter" from="Control" to="." method="_on_Control_mouse_enter"]
+
+[connection signal="mouse_exit" from="Control" to="." method="_on_Control_mouse_exit"]
+
+

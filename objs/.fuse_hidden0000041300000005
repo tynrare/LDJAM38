@@ -1,0 +1,175 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://objs/item.tscn" type="PackedScene" id=1]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Container" type="Container" parent="."]
+
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 95.0
+margin/right = 0.0
+margin/bottom = 0.0
+
+[node name="ItemList" type="ItemList" parent="Container"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container"]
+
+anchor/top = 3
+anchor/right = 1
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 49.0
+margin/top = -4.5
+margin/right = -45.0
+margin/bottom = -54.5
+alignment = 1
+
+[node name="item" parent="Container/HBoxContainer" instance=ExtResource( 1 )]
+
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 89.0
+margin/bottom = 50.0
+
+[node name="item2" parent="Container/HBoxContainer" instance=ExtResource( 1 )]
+
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 93.0
+margin/top = 0.0
+margin/right = 182.0
+margin/bottom = 50.0
+
+[node name="item3" parent="Container/HBoxContainer" instance=ExtResource( 1 )]
+
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 186.0
+margin/top = 0.0
+margin/right = 275.0
+margin/bottom = 50.0
+
+[node name="item4" parent="Container/HBoxContainer" instance=ExtResource( 1 )]
+
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 279.0
+margin/top = 0.0
+margin/right = 368.0
+margin/bottom = 50.0
+
+[node name="item5" parent="Container/HBoxContainer" instance=ExtResource( 1 )]
+
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 372.0
+margin/top = 0.0
+margin/right = 461.0
+margin/bottom = 50.0
+
+[node name="item6" parent="Container/HBoxContainer" instance=ExtResource( 1 )]
+
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 465.0
+margin/top = 0.0
+margin/right = 554.0
+margin/bottom = 50.0
+
+[node name="item7" parent="Container/HBoxContainer" instance=ExtResource( 1 )]
+
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 558.0
+margin/top = 0.0
+margin/right = 647.0
+margin/bottom = 50.0
+
+[node name="item8" parent="Container/HBoxContainer" instance=ExtResource( 1 )]
+
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 651.0
+margin/top = 0.0
+margin/right = 740.0
+margin/bottom = 50.0
+
+[node name="item9" parent="Container/HBoxContainer" instance=ExtResource( 1 )]
+
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 744.0
+margin/top = 0.0
+margin/right = 833.0
+margin/bottom = 50.0
+
+[node name="item10" parent="Container/HBoxContainer" instance=ExtResource( 1 )]
+
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 837.0
+margin/top = 0.0
+margin/right = 926.0
+margin/bottom = 50.0
+
+[node name="item11" parent="Container/HBoxContainer" instance=ExtResource( 1 )]
+
+anchor/left = 0
+anchor/top = 0
+anchor/right = 0
+anchor/bottom = 0
+margin/left = 930.0
+margin/top = 0.0
+margin/right = 1020.0
+margin/bottom = 50.0
+
+

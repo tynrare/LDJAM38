@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://image/planet/fishhouse.png" type="Texture" id=1]
+
+[node name="pivot" type="Node2D"]
+
+transform/pos = Vector2( 0.291992, 0.291985 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+transform/pos = Vector2( 0.583984, -20.4393 )
+build_mode = 0
+polygon = Vector2Array( -15.027, 13.2965, 1.21057, 24.5468, 9.56131, 20.0235, -2.15291, 9.00514 )
+shape_range = Vector2( -1, -1 )
+trigger = false
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/pos = Vector2( -0.291992, -11.6796 )
+transform/scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 1 )
+
+

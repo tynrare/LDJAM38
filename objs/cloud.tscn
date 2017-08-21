@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://image/inviroment/cloud.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Sprite
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+var move_speed;
+func _ready():
+	set_process(true);
+	move_speed = rand_range(40,60)
+	set_opacity(rand_range(0.5, 1));
+	var scale = rand_range(0.5, 2);
+	set_scale(Vector2(scale, scale));
+	set_z(-rand_range(0, 256));
+	# Called every time the node is added to the scene.
+	# Initialization here
+	pass
+	
+func _process(d):
+	move_local_x(-move_speed*d);
+	if(get_pos().x < -2000): get_parent().remove_child(self);
+"
+
+[node name="cloud" type="Sprite"]
+
+texture = ExtResource( 1 )
+script/script = SubResource( 1 )
+
+

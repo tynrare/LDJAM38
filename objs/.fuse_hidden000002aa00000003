@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://scripts/baseItem.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[node name="item" type="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+script/script = ExtResource( 1 )
+
+[node name="Control" type="TextureFrame" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -33.0
+margin/top = -34.0
+margin/right = 31.0
+margin/bottom = 30.0
+texture = ExtResource( 2 )
+stretch_mode = 0
+
+[connection signal="input_event" from="Control" to="." method="_on_Control_input_event"]
+
+[connection signal="mouse_enter" from="Control" to="." method="_on_Control_mouse_enter"]
+
+[connection signal="mouse_exit" from="Control" to="." method="_on_Control_mouse_exit"]
+
+
